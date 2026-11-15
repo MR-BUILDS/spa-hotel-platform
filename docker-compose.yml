@@ -1,0 +1,21 @@
+services:
+  postgres:
+    image: postgres:17-alpine
+    container_name: spa-hotel-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: spa_hotel
+      POSTGRES_USER: spa_hotel
+      POSTGRES_PASSWORD: spa_hotel_dev
+    ports:
+      - "5432:5432"
+    volumes:
+      - spa_hotel_postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U spa_hotel -d spa_hotel"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+volumes:
+  spa_hotel_postgres_data:

@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>هتل‌های سرعین | رزرو آنلاین</title>
+  <link rel="stylesheet" href="css/hotel.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- هدر سایت -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="logo">سرعین<span>هوشمند</span></div>
+      <nav class="main-nav">
+        <a href="#">صفحه اصلی</a>
+        <a href="#">آبدرمانی‌ها</a>
+        <a href="#" class="active">هتل‌ها</a>
+        <a href="#">پیشنهادهای ویژه</a>
+      </nav>
+      <div class="header-actions">
+        <button class="lang-btn">EN</button>
+        <button class="btn-outline">ورود / ثبت‌نام</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="listing-page">
+    <div class="container">
+      
+      <!-- هدر صفحه لیست -->
+      <div class="listing-header">
+        <div class="listing-title-area">
+          <h1>هتل‌های سرعین</h1>
+          <p class="results-count">۹ هتل پیدا شد</p>
+        </div>
+        <div class="view-toggle">
+          <button class="view-btn active" data-view="grid" title="نمایش شبکه‌ای">⊞</button>
+          <button class="view-btn" data-view="list" title="نمایش لیستی">☰</button>
+        </div>
+      </div>
+
+      <div class="listing-content">
+        <!-- فیلترها -->
+        <aside class="filters-sidebar">
+          <div class="filters-header">
+            <h3>فیلترها</h3>
+            <button class="clear-filters">پاک کردن همه</button>
+          </div>
+
+          <div class="filter-group">
+            <h4>بازه قیمت (تومان)</h4>
+            <div class="price-inputs">
+              <input type="number" placeholder="از" value="600000" />
+              <span>تا</span>
+              <input type="number" placeholder="تا" value="2500000" />
+            </div>
+            <input type="range" min="400000" max="4000000" value="2500000" class="price-range" />
+          </div>
+
+          <div class="filter-group">
+            <h4>امتیاز</h4>
+            <div class="rating-filters">
+              <label class="rating-option">
+                <input type="checkbox" />
+                <span class="stars">★★★★★</span>
+                <span>۵ ستاره</span>
+              </label>
+              <label class="rating-option">
+                <input type="checkbox" checked />
+                <span class="stars">★★★★☆</span>
+                <span>۴ ستاره به بالا</span>
+              </label>
+              <label class="rating-option">
+                <input type="checkbox" />
+                <span class="stars">★★★☆☆</span>
+                <span>۳ ستاره به بالا</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="filter-group">
+            <h4>ویژگی‌ها</h4>
+            <label class="checkbox-option">
+              <input type="checkbox" />
+              <span>هتل دارای آبدرمانی</span>
+            </label>
+            <label class="checkbox-option">
+              <input type="checkbox" />
+              <span>نزدیک به آبدرمانی</span>
+            </label>
+          </div>
+
+          <button class="btn-primary apply-filters">اعمال فیلترها</button>
+        </aside>
+
+        <!-- نتایج -->
+        <section class="results-section">
+          <div class="sorting-bar">
+            <span>مرتب‌سازی بر اساس:</span>
+            <div class="sort-options">
+              <button class="sort-btn active">محبوب‌ترین</button>
+              <button class="sort-btn">ارزان‌ترین</button>
+              <button class="sort-btn">گران‌ترین</button>
+              <button class="sort-btn">بالاترین امتیاز</button>
+            </div>
+          </div>
+
+          <div class="cards-grid" id="cards-container">
+            
+            <!-- کارت هتل -->
+            <article class="card card-hotel">
+              <div class="card-image">
+                <div class="image-placeholder hotel-bg">هتل لاله</div>
+                <span class="badge badge-popular">محبوب</span>
+                <button class="compare-btn">＋</button>
+              </div>
+              <div class="card-body">
+                <div class="card-tags">
+                  <span class="tag tag-hotel">هتل</span>
+                  <span class="tag">نزدیک به آبدرمانی</span>
+                </div>
+                <h3 class="card-title">هتل بین‌المللی لاله سرعین</h3>
+                <div class="card-rating">
+                  <span class="stars">★★★★★</span>
+                  <span class="rating-text">۴.۷ (۱۵۲ نظر)</span>
+                </div>
+                <div class="card-footer">
+                  <div class="price">
+                    <span class="price-label">شروع از</span>
+                    <span class="price-value">۱,۲۵۰,۰۰۰</span>
+                    <span class="price-currency">تومان</span>
+                  </div>
+                  <a href="#" class="btn-card">مشاهده جزئیات</a>
+                </div>
+              </div>
+            </article>
+
+            <!-- کارت هتل -->
+            <article class="card card-hotel">
+              <div class="card-image">
+                <div class="image-placeholder hotel-bg">هتل ارشاد</div>
+                <span class="badge badge-discount">تخفیف‌دار</span>
+                <button class="compare-btn">＋</button>
+              </div>
+              <div class="card-body">
+                <div class="card-tags">
+                  <span class="tag tag-hotel">هتل</span>
+                  <span class="tag">دارای آبدرمانی</span>
+                </div>
+                <h3 class="card-title">هتل و آبدرمانی ارشاد (پهنلو)</h3>
+                <div class="card-rating">
+                  <span class="stars">★★★★☆</span>
+                  <span class="rating-text">۴.۴ (۸۹ نظر)</span>
+                </div>
+                <div class="card-footer">
+                  <div class="price">
+                    <span class="price-label">شروع از</span>
+                    <span class="price-value">۸۹۰,۰۰۰</span>
+                    <span class="price-currency">تومان</span>
+                  </div>
+                  <a href="#" class="btn-card">مشاهده جزئیات</a>
+                </div>
+              </div>
+            </article>
+
+            <!-- کارت هتل -->
+            <article class="card card-hotel">
+              <div class="card-image">
+                <div class="image-placeholder hotel-bg">هتل کوروش</div>
+                <button class="compare-btn">＋</button>
+              </div>
+              <div class="card-body">
+                <div class="card-tags">
+                  <span class="tag tag-hotel">هتل</span>
+                  <span class="tag">نزدیک به آبدرمانی</span>
+                </div>
+                <h3 class="card-title">هتل کوروش سرعین</h3>
+                <div class="card-rating">
+                  <span class="stars">★★★★☆</span>
+                  <span class="rating-text">۴.۲ (۱۱۷ نظر)</span>
+                </div>
+                <div class="card-footer">
+                  <div class="price">
+                    <span class="price-label">شروع از</span>
+                    <span class="price-value">۷۸۰,۰۰۰</span>
+                    <span class="price-currency">تومان</span>
+                  </div>
+                  <a href="#" class="btn-card">مشاهده جزئیات</a>
+                </div>
+              </div>
+            </article>
+
+            <!-- کارت هتل -->
+            <article class="card card-hotel">
+              <div class="card-image">
+                <div class="image-placeholder hotel-bg">رویال پارک</div>
+                <span class="badge badge-popular">محبوب</span>
+                <button class="compare-btn">＋</button>
+              </div>
+              <div class="card-body">
+                <div class="card-tags">
+                  <span class="tag tag-hotel">هتل</span>
+                  <span class="tag">دارای آبدرمانی</span>
+                </div>
+                <h3 class="card-title">هتل رویال پارک سرعین</h3>
+                <div class="card-rating">
+                  <span class="stars">★★★★★</span>
+                  <span class="rating-text">۴.۸ (۱۳۴ نظر)</span>
+                </div>
+                <div class="card-footer">
+                  <div class="price">
+                    <span class="price-label">شروع از</span>
+                    <span class="price-value">۱,۶۸۰,۰۰۰</span>
+                    <span class="price-currency">تومان</span>
+                  </div>
+                  <a href="#" class="btn-card">مشاهده جزئیات</a>
+                </div>
+              </div>
+            </article>
+
+            <!-- کارت هتل -->
+            <article class="card card-hotel">
+              <div class="card-image">
+                <div class="image-placeholder hotel-bg">هتل پارسیان</div>
+                <button class="compare-btn">＋</button>
+              </div>
+              <div class="card-body">
+                <div class="card-tags">
+                  <span class="tag tag-hotel">هتل</span>
+                </div>
+                <h3 class="card-title">هتل پارسیان سرعین</h3>
+                <div class="card-rating">
+                  <span class="stars">★★★★☆</span>
+                  <span class="rating-text">۴.۱ (۷۶ نظر)</span>
+                </div>
+                <div class="card-footer">
+                  <div class="price">
+                    <span class="price-label">شروع از</span>
+                    <span class="price-value">۹۲۰,۰۰۰</span>
+                    <span class="price-currency">تومان</span>
+                  </div>
+                  <a href="#" class="btn-card">مشاهده جزئیات</a>
+                </div>
+              </div>
+            </article>
+
+            <!-- کارت هتل -->
+            <article class="card card-hotel">
+              <div class="card-image">
+                <div class="image-placeholder hotel-bg">هتل آلتین</div>
+                <span class="badge badge-discount">تخفیف‌دار</span>
+                <button class="compare-btn">＋</button>
+              </div>
+              <div class="card-body">
+                <div class="card-tags">
+                  <span class="tag tag-hotel">هتل</span>
+                  <span class="tag">نزدیک به آبدرمانی</span>
+                </div>
+                <h3 class="card-title">هتل‌آپارتمان آلتین</h3>
+                <div class="card-rating">
+                  <span class="stars">★★★★☆</span>
+                  <span class="rating-text">۴.۰ (۶۴ نظر)</span>
+                </div>
+                <div class="card-footer">
+                  <div class="price">
+                    <span class="price-label">شروع از</span>
+                    <span class="price-value">۶۵۰,۰۰۰</span>
+                    <span class="price-currency">تومان</span>
+                  </div>
+                  <a href="#" class="btn-card">مشاهده جزئیات</a>
+                </div>
+              </div>
+            </article>
+
+          </div>
+
+          <div class="pagination">
+            <button class="page-btn" disabled>قبلی</button>
+            <button class="page-btn active">۱</button>
+            <button class="page-btn">۲</button>
+            <button class="page-btn">بعدی</button>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p>© ۱۴۰۴ سرعین هوشمند — تمام حقوق محفوظ است.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="javascript/hotel.js"></script>
+</body>
+</html>

@@ -1,0 +1,340 @@
+
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Liquid Water Button</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 220vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background:
+        radial-gradient(ellipse at 50% 20%, #193b5d, #071421 65%);
+    color: white;
+    font-family: Tahoma, sans-serif;
+}
+
+.container {
+    position: sticky;
+    top: 30vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 25px;
+    padding: 30px;
+}
+
+h2 {
+    font-size: 22px;
+    font-weight: 500;
+}
+
+.water-button {
+    position: relative;
+    width: 240px;
+    height: 90px;
+    overflow: hidden;
+    border-radius: 24px;
+    border: 1px solid rgba(190, 230, 255, .4);
+    background: rgba(255, 255, 255, .07);
+    backdrop-filter: blur(12px);
+    box-shadow:
+        inset 0 1px 2px rgba(255,255,255,.3),
+        0 15px 35px rgba(0,0,0,.3),
+        0 0 25px rgba(30,150,255,.1);
+    cursor: pointer;
+    isolation: isolate;
+    transition: transform .2s, box-shadow .3s;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.water-button:hover {
+    box-shadow:
+        inset 0 1px 3px rgba(255,255,255,.5),
+        0 15px 40px rgba(0,0,0,.3),
+        0 0 30px rgba(30,160,255,.3);
+}
+
+.water-button:active {
+    transform: scale(.97);
+}
+
+.water-canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+}
+.water-button span {
+    position: relative;
+    z-index: 2;
+    color: #fff;
+    font-size: 19px;
+    font-weight: bold;
+    text-shadow: 0 2px 8px rgba(0,30,70,.6);
+    pointer-events: none;
+}
+
+.hint {
+    color: #a8c7df;
+    font-size: 13px;
+    text-align: center;
+    line-height: 2;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h2>تجربه آب زنده 🌊</h2>
+
+    <button class="water-button" id="waterButton">
+        <canvas class="water-canvas" id="waterCanvas"></canvas>
+        <span>لمس آب</span>
+    </button>
+
+    <p class="hint">
+        موس را روی دکمه حرکت بده<br>
+        کلیک کن یا صفحه را اسکرول کن
+    </p>
+
+</div>
+
+<script>
+const button = document.getElementById("waterButton");
+const canvas = document.getElementById("waterCanvas");
+const ctx = canvas.getContext("2d");
+
+let width, height;
+let level = 0.56;
+let targetLevel = 0.56;
+let velocity = 0;
+let ripples = [];
+let particles = [];
+let lastPointer = null;
+
+function resize() {
+    const rect = button.getBoundingClientRect();
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+    width = rect.width;
+    height = rect.height;
+
+    canvas.width = width * dpr;
+    canvas.height = height * dpr;
+
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+}
+
+resize();
+window.addEventListener("resize", resize);
+
+// ایجاد موج در نقطه مشخص
+function addRipple(x, strength = 1) {
+    ripples.push({
+        x,
+        age: 0,
+        strength
+    });
+
+    if (ripples.length > 12) {
+        ripples.shift();
+    }
+}
+
+// ایجاد قطرات آب
+function splash(x) {
+    for (let i = 0; i < 13; i++) {
+        particles.push({
+            x,
+            y: height * (1 - level),
+            vx: (Math.random() - 0.5) * 5,
+            vy: -Math.random() * 6 - 2,
+            life: 1,
+            radius: Math.random() * 3 + 1
+        });
+    }
+
+    addRipple(x, 2.5);
+}
+
+// واکنش به حرکت موس و لمس
+function pointerMove(e) {
+    const rect = button.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+
+    if (lastPointer !== null) {
+        const speed = Math.abs(x - lastPointer);
+
+        if (speed > 2) {
+            addRipple(x, Math.min(speed / 10, 2));
+            velocity += (Math.random() - 0.5) * speed * 0.001;
+        }
+    }
+
+    lastPointer = x;
+}
+
+button.addEventListener("pointermove", pointerMove);
+
+button.addEventListener("pointerenter", e => {
+    const rect = button.getBoundingClientRect();
+    addRipple(e.clientX - rect.left, 1.5);
+});
+
+button.addEventListener("pointerleave", () => {
+    lastPointer = null;
+});
+
+button.addEventListener("pointerdown", e => {
+    const rect = button.getBoundingClientRect();
+    splash(e.clientX - rect.left);
+});
+
+// کنترل سطح آب با اسکرول
+window.addEventListener("scroll", () => {
+    const scroll = window.scrollY;
+
+    targetLevel = 0.56 + Math.sin(scroll * 0.012) * 0.17;
+    targetLevel = Math.max(0.18, Math.min(0.82, targetLevel));
+
+    velocity += (Math.random() - 0.5) * 0.015;
+}, { passive: true });
+
+// محاسبه ارتفاع سطح آب
+function waveY(x, time) {
+    let y = height * (1 - level);
+
+    // موج های اصلی
+    y += Math.sin(x * 0.035 + time * 0.002) * 3;
+    y += Math.sin(x * 0.018 - time * 0.0015) * 2;
+
+    // موج های ناشی از تعامل
+    ripples.forEach(r => {
+        const distance = x - r.x;
+        const attenuation = Math.exp(-r.age * 0.045);
+        y += Math.sin(distance * 0.11 - r.age * 0.17)
+            * Math.exp(-Math.abs(distance) * 0.025)
+            * r.strength * attenuation * 10;
+    });
+
+    return y;
+}
+
+// رسم آب
+function drawWater(time) {
+    ctx.clearRect(0, 0, width, height);
+
+    // رسم مسیر سطح آب
+    ctx.beginPath();
+    ctx.moveTo(0, height);
+
+    ctx.lineTo(0, waveY(0, time));
+
+    for (let x = 0; x <= width; x += 2) {
+        ctx.lineTo(x, waveY(x, time));
+    }
+
+    ctx.lineTo(width, height);
+    ctx.closePath();
+
+    // گرادیان عمق آب
+    const gradient = ctx.createLinearGradient(
+        0, height * (1 - level), 0, height
+    );
+
+    gradient.addColorStop(0, "rgba(145,225,255,.85)");
+    gradient.addColorStop(.15, "rgba(30,155,235,.88)");
+    gradient.addColorStop(.55, "rgba(0,105,195,.95)");
+    gradient.addColorStop(1, "rgba(0,55,120,1)");
+
+    ctx.fillStyle = gradient;
+    ctx.fill();
+
+    // انعکاس نور روی آب
+    ctx.save();
+    ctx.beginPath();
+
+    for (let x = 0; x <= width; x += 2) {
+        const y = waveY(x, time);
+        if (x === 0) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+    }
+
+    ctx.strokeStyle = "rgba(230,250,255,.8)";
+    ctx.lineWidth = 2;
+    ctx.shadowColor = "#8ee8ff";
+    ctx.shadowBlur = 8;
+    ctx.stroke();
+    ctx.restore();
+
+    // خطوط انعکاس زیر سطح آب
+    ctx.save();
+    ctx.beginPath();
+    for (let i = 0; i < 5; i++) {
+        const y = height * (1 - level) + 15 + i * 9;
+        ctx.moveTo(10 + Math.sin(time * .002 + i) * 8, y);
+        ctx.lineTo(width * .4 + Math.sin(time * .003 + i) * 12, y);
+    }
+    ctx.strokeStyle = "rgba(190,240,255,.18)";
+    ctx.lineWidth = 2;
+    ctx.stroke();
+    ctx.restore();
+}
+
+// به روزرسانی قطرات
+function updateParticles() {
+    particles = particles.filter(p => p.life > 0);
+
+    particles.forEach(p => {
+        p.x += p.vx;
+        p.y += p.vy;
+        p.vy += 0.16;
+        p.life -= 0.018;
+
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.radius * p.life, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(190,240,255,${p.life})`;
+        ctx.shadowColor = "#80dfff";
+        ctx.shadowBlur = 8;
+        ctx.fill();
+    });
+    ctx.shadowBlur = 0;
+}
+
+// حلقه اصلی انیمیشن
+function animate(time) {
+    // حرکت نرم سطح آب
+    const difference = targetLevel - level;
+    velocity += difference * 0.012;
+    velocity *= 0.94;
+    level += velocity;
+
+    // کاهش تدریجی موج ها
+    ripples.forEach(r => r.age++);
+    ripples = ripples.filter(r => r.age < 90);
+
+    drawWater(time);
+    updateParticles();
+
+    requestAnimationFrame(animate);
+}
+
+requestAnimationFrame(animate);
+
+</script>
+</body>
+</html>

@@ -1,0 +1,548 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --primary: #0c4a6e;
+  --bg: #faf7f5;               /* پس‌زمینه گرم‌تر به جای سفید سرد */
+  --white: #fffaf7;             /* سفید گرم */
+  --text: #1c1917;
+  --text-muted: #78716c;
+  --border: #e7e5e4;
+
+  /* رنگ‌های جدید هتل - زرشکی و جگری */
+  --hotel: #9f1239;
+  --hotel-dark: #881337;
+  --hotel-light: #be123c;
+  --hotel-soft: #fff1f2;
+  --hotel-gradient: linear-gradient(135deg, #9f1239, #be123c);
+
+  --shadow: 0 4px 14px rgba(159, 18, 57, 0.08);
+  --shadow-hover: 0 16px 36px rgba(159, 18, 57, 0.15);
+  --radius: 16px;
+  --transition: 0.25s ease;
+}
+
+body {
+  font-family: 'Vazirmatn', system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+}
+
+a { text-decoration: none; color: inherit; }
+button { font-family: inherit; cursor: pointer; border: none; background: none; }
+
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* هدر */
+.site-header {
+  background: var(--white);
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 68px;
+}
+
+.logo {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--primary);
+}
+
+.logo span {
+  color: var(--hotel);
+  font-weight: 500;
+}
+
+.main-nav {
+  display: flex;
+  gap: 28px;
+}
+
+.main-nav a {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  transition: color var(--transition);
+}
+
+.main-nav a:hover,
+.main-nav a.active {
+  color: var(--hotel);
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.lang-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.btn-outline {
+  padding: 8px 18px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+/* صفحه لیست */
+.listing-page {
+  padding: 32px 0 60px;
+}
+
+.listing-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 28px;
+}
+
+.listing-title-area h1 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin-bottom: 4px;
+  color: var(--text);
+}
+
+.results-count {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+}
+
+.view-toggle {
+  display: flex;
+  gap: 6px;
+  background: var(--white);
+  padding: 4px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+}
+
+.view-btn {
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  color: var(--text-muted);
+  font-size: 1.1rem;
+}
+
+.view-btn.active {
+  background: var(--hotel);
+  color: white;
+}
+
+/* چیدمان */
+.listing-content {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 28px;
+  align-items: start;
+}
+
+/* فیلترها */
+.filters-sidebar {
+  background: var(--white);
+  border-radius: var(--radius);
+  padding: 22px;
+  box-shadow: var(--shadow);
+  position: sticky;
+  top: 90px;
+  border: 1px solid #f1e9e7;
+}
+
+.filters-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 22px;
+}
+
+.filters-header h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.clear-filters {
+  font-size: 0.85rem;
+  color: var(--hotel);
+  font-weight: 500;
+}
+
+.filter-group {
+  margin-bottom: 24px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--border);
+}
+
+.filter-group h4 {
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin-bottom: 14px;
+}
+
+.price-inputs {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.price-inputs input {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-family: inherit;
+  text-align: center;
+  background: #fff;
+}
+
+.price-range {
+  width: 100%;
+  accent-color: var(--hotel);
+}
+
+.rating-option,
+.checkbox-option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.rating-option .stars {
+  color: #e11d48;
+}
+
+/* دکمه اعمال فیلتر */
+.btn-primary {
+  width: 100%;
+  padding: 12px;
+  background: var(--hotel-gradient);
+  color: white;
+  font-weight: 600;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 14px rgba(159, 18, 57, 0.3);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(159, 18, 57, 0.4);
+}
+
+/* مرتب‌سازی */
+.sorting-bar {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.sorting-bar > span {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+.sort-options {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.sort-btn {
+  padding: 7px 14px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  background: var(--white);
+  border: 1px solid var(--border);
+}
+
+.sort-btn.active {
+  background: var(--hotel);
+  color: white;
+  border-color: var(--hotel);
+}
+
+/* کارت‌ها */
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 22px;
+}
+
+.card {
+  background: var(--white);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  transition: all var(--transition);
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #f1e9e7;
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-hover);
+}
+
+.card-hotel {
+  border-top: 3px solid var(--hotel);
+}
+
+.card-image {
+  position: relative;
+  height: 180px;
+}
+
+.image-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: white;
+}
+
+.hotel-bg {
+  background: linear-gradient(135deg, #9f1239, #be123c, #e11d48);
+}
+
+.badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: white;
+}
+
+.badge-discount { background: #dc2626; }
+.badge-popular { background: #7c3aed; }
+
+.compare-btn {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.92);
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--hotel-dark);
+}
+
+.card-body {
+  padding: 16px 18px 18px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.card-tags {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+}
+
+.tag {
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  background: #f5f5f4;
+  color: var(--text-muted);
+}
+
+.tag-hotel {
+  background: var(--hotel-soft);
+  color: var(--hotel-dark);
+}
+
+.card-title {
+  font-size: 1.05rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.card-rating {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.card-rating .stars {
+  color: #e11d48;
+}
+
+.rating-text {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: auto;
+  gap: 12px;
+}
+
+.price-label {
+  display: block;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.price-value {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--hotel-dark);
+}
+
+.price-currency {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+/* دکمه کارت هتل */
+.btn-card {
+  padding: 9px 16px;
+  border-radius: 10px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: white;
+  background: var(--hotel-gradient);
+  white-space: nowrap;
+  transition: all 0.3s ease;
+  box-shadow: 0 3px 12px rgba(159, 18, 57, 0.28);
+}
+
+.btn-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(159, 18, 57, 0.4);
+}
+
+/* صفحه‌بندی */
+.pagination {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 40px;
+}
+
+.page-btn {
+  min-width: 40px;
+  height: 40px;
+  padding: 0 12px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: var(--white);
+  font-weight: 500;
+  color: var(--text-muted);
+}
+
+.page-btn.active {
+  background: var(--hotel);
+  color: white;
+  border-color: var(--hotel);
+}
+
+.page-btn:disabled {
+  opacity: 0.4;
+}
+
+/* فوتر */
+.site-footer {
+  background: var(--white);
+  border-top: 1px solid var(--border);
+  padding: 20px 0;
+}
+
+.footer-bottom {
+  text-align: center;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+/* حالت لیستی */
+.cards-grid.list-view {
+  grid-template-columns: 1fr;
+}
+
+.cards-grid.list-view .card {
+  flex-direction: row;
+  max-height: 180px;
+}
+
+.cards-grid.list-view .card-image {
+  width: 240px;
+  min-width: 240px;
+  height: 100%;
+}
+
+/* ریسپانسیو */
+@media (max-width: 1024px) {
+  .listing-content {
+    grid-template-columns: 1fr;
+  }
+  .filters-sidebar {
+    position: static;
+  }
+  .main-nav {
+    display: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .listing-header {
+    flex-direction: column;
+    gap: 16px;
+  }
+  .cards-grid {
+    grid-template-columns: 1fr;
+  }
+}
